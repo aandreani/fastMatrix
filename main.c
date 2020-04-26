@@ -47,12 +47,46 @@ void delete_matrix(matrix* mat) {
 
 int main() {
     printf("Welcome to fastMatrix library test!\n");
-    printf("Allocating some matrices...");
+    printf("[+] Allocating some matrices...");
     matrix* A = new_matrix(2, 2);
     matrix* B = new_matrix(2, 2);
+    matrix* C = new_matrix(5, 5);
+    matrix* D = new_matrix(5, 5);
+    matrix* E = new_matrix(4, 44);
+    matrix* F = new_matrix(4, 44);
     init_matrix(A); init_matrix(B);
+    init_matrix(C); init_matrix(D);
+    init_matrix(E); init_matrix(F);
+    printf("done!\n");
+
+    printf("A:\n");
     print_matrix(A);
+    printf("B:\n");
     print_matrix(B);
+
+    printf("*** Matrix sum test section ***\n");
+    printf("Computing some sums...");
+    matrix* ab = new_matrix(A->r, A->c);
+    sum_int_matrix(A->m, B->m, C->m, A->r, A->c);
+
+    matrix* cd = new_matrix(C->r, C->c);
+    sum_int_matrix(C->m, D->m, cd->m, C->r, C->c);
+
+    matrix* ef = new_matrix(E->r, E->c);
+    sum_int_matrix(E->m, F->m, ef->m, E->r, E->c);
+    printf("done!\n");
+
+    printf("A + B:\n"); print_matrix(ab);
+    printf("C + D:\n"); print_matrix(cd);
+    printf("E + F:\n"); print_matrix(ef);
+
+
+    printf("[+] Cleaning memory...");
     delete_matrix(A);
     delete_matrix(B);
+    delete_matrix(C);
+    delete_matrix(D);
+    delete_matrix(E);
+    delete_matrix(F);
+    printf("done!");
 }

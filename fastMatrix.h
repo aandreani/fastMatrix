@@ -10,4 +10,4 @@
  * ATTENTION! Pass same sized matrix, since no control will be made
  * on their size and buffer overflow / segmentation fault could happen.
 */
-void sum_int(int** A, int** B, int** C, int r, int c);
+void sum_int_matrix(int** A, int** B, int** C, int r, int c);

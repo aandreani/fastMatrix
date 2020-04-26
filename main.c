@@ -88,5 +88,5 @@ int main() {
     delete_matrix(D);
     delete_matrix(E);
     delete_matrix(F);
-    printf("done!");
+    printf("done!\n");
 }

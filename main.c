@@ -32,7 +32,7 @@ void print_matrix(matrix* mat) {
     int i = 0, j = 0;
     for(i; i < mat->r; i++) {
         for(j = 0; j < mat->c; j++) printf("%d ", m[i][j]);
-        printf('\n');
+        printf("\n");
     }
     printf("\n");
 }

@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-mavx2 -sse2 -O2
+CFLAGS=-mavx2 -msse2 -O2
 DEPS = fastMatrix.h
 OBJ = fastMatrix.o
 

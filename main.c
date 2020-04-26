@@ -67,7 +67,7 @@ int main() {
     printf("*** Matrix sum test section ***\n");
     printf("Computing some sums...");
     matrix* ab = new_matrix(A->r, A->c);
-    sum_int_matrix(A->m, B->m, C->m, A->r, A->c);
+    sum_int_matrix(A->m, B->m, ab->m, A->r, A->c);
 
     matrix* cd = new_matrix(C->r, C->c);
     sum_int_matrix(C->m, D->m, cd->m, C->r, C->c);

@@ -1,5 +1,6 @@
 #include "fastMatrix.h"
 #include <immintrin.h>
+#include <stdlib.h>
 
 void sum_4_int(int* A, int* B, int* C) {
     __m128i a, b, c;

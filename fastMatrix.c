@@ -48,7 +48,7 @@ void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
             for(k = 0; k+7< br; k++) {
                 __m256i aa, bb, cc;
                 aa = _mm256_loadu_si256((const __m256i*)A[i]+k);
-                bb = _mm256_loadu_si256((const __m256i*)m[i]+k);
+                bb = _mm256_loadu_si256((const __m256i*)m[j]+k);
                 cc = _mm256_mullo_epi32(aa, bb);
                 _mm256_storeu_si256((__m256i*)tmp+k, cc);
             }

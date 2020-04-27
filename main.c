@@ -40,7 +40,6 @@ int main() {
     tt = ((double)t)/CLOCKS_PER_SEC;
     printf("fast: %f\t\n", tt);
 
-
     printf("[+] Cleaning memory...");
     delete_matrix(A);
     delete_matrix(B);

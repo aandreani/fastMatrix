@@ -13,4 +13,4 @@
 void sum_int_matrix(int** A, int** B, int** C, int r, int c);
 
 void mul_t(int** A, int** B, int** C, int ar, int bc, int br);
-void mul(int** A, int** B, int** C, int ar, int bc, int br)
+void mul(int** A, int** B, int** C, int ar, int bc, int br);

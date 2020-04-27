@@ -56,7 +56,6 @@ void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
             for(k = 0; k < br; k++) C[i][j] += tmp[k];
         }
     }
-    
 }
 
 // r = A rows

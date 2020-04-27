@@ -43,19 +43,22 @@ void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
     }
     int* tmp = (int*)malloc(br*sizeof(int));
     // Now m is the transposed matrix of B
-    for(i = 0; i < ar; i++) {
-        for(j = 0; j < bc; j++) {
-            for(k = 0; k+7< br; k++) {
-                __m256i aa, bb, cc;
-                aa = _mm256_loadu_si256((const __m256i*)A[i]+k);
-                bb = _mm256_loadu_si256((const __m256i*)m[j]+k);
-                cc = _mm256_mullo_epi32(aa, bb);
-                _mm256_storeu_si256((__m256i*)tmp+k, cc);
+    
+    for(i=0; i < ar; i++) {
+        for(j=0; j<bc; j++) {
+            for(k=0; k+7<br; k+=8) {
+                __m256i a, b, c;
+                a = _mm256_loadu_si256((const __m256i*)A[i]+k);
+                b = _mm256_loadu_si256((const __m256i*)B[j]+k);
+                c = _mm256_mullo_epi32(a, b);
+                _mm256_storeu_si256((__m256i*)tmp+k, c);
             }
-            for(k; k<br; k++) tmp[k] = A[i][k]*m[i][k];
-            for(k = 0; k < br; k++) C[i][j] += tmp[k];
+            for(k; k<br; k++) tmp[k] = A[i][k]*B[j][k];
+            C[i][j] = 0;
+            for(k=0; k<br; k++) C[i][j] = C[i][j] + tmp[k];
         }
     }
+
     free(tmp);
     for(i=0;i<br;i++)free(m[i]);
     free(m);

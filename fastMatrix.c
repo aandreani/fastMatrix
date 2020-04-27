@@ -41,7 +41,7 @@ void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
     for(i=0; i < br; i++) {
         for(j=0; j<bc; j++) m[i][j] = B[j][i];
     }
-    int* tmp = (int*)malloc(bc*sizeof(int));
+    int* tmp = (int*)malloc(br*sizeof(int));
     // Now m is the transposed matrix of B
     for(i = 0; i < ar; i++) {
         for(j = 0; j < bc; j++) {

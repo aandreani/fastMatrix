@@ -49,3 +49,14 @@ void matrix_sum(matrix* A, matrix* B, matrix* C) {
     for(i; i < r; i++) 
         for(j = 0; j < c; j++) cc[i][j] = a[i][j] + b[i][j];
 }
+
+matrix* transpose(matrix* A) {
+    int r = A->r, c = A->c;
+    matrix* R = new_matrix(r, c);
+    int** m = R->m;
+    int i = 0, j;
+    for(i; i < r; i++) {
+        for(j = 0; j < c; j++) m[i][j] = A->m[j][i];
+    }
+    return R;
+}

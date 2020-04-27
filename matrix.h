@@ -13,3 +13,5 @@ void print_matrix(matrix* mat);
 void delete_matrix(matrix* mat);
 
 void matrix_sum(matrix* A, matrix* B, matrix* C);
+
+matrix* transpose(matrix* A);

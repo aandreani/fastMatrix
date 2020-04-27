@@ -21,7 +21,7 @@ void init_matrix(matrix* mat) {
     int i = 0, j = 0;
     for(i; i < mat->r; i++) 
         for(j = 0; j < mat->c; j++)
-            m[i][j] = rand()%MAX + 1;
+            m[i][j] = 1; //rand()%MAX + 1;
 }
 
 void print_matrix(matrix* mat) {

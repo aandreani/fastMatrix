@@ -8,15 +8,10 @@ int main() {
     printf("Welcome to fastMatrix library test!\n");
 
     printf("[+] Allocating some matrices...");
-    matrix* A = new_matrix(2, 2);
-    matrix* B = new_matrix(2, 2);
+    matrix* A = new_matrix(10, 10000);
+    matrix* B = new_matrix(10000, 5);
     init_matrix(A); init_matrix(B);
     printf("done!\n");
-
-    printf("A:\n");
-    print_matrix(A);
-    printf("B:\n");
-    print_matrix(B);
 
     clock_t t;
     double tt;
@@ -25,7 +20,10 @@ int main() {
 
     matrix* ab = new_matrix(A->r, B->c);
     matrix* fab = new_matrix(A->r, B->c);
-    printf("[+] Computing times for E x F (%dx%d, %dx%d):\n", 
+    matrix* T = new_matrix(B->c, B->r);
+
+    
+    printf("[+] Computing E x F (%dx%d, %dx%d):\n", 
         A->r, A->c, B->r, B->c);
 
     t = clock();
@@ -35,10 +33,11 @@ int main() {
     printf("slow: %f\t", tt);
 
     t = clock();
-    mul_t(A->m, B->m, fab->m, A->r, B->c, B->r);
+    mul_t(A->m, B->m, fab->m, T->m, A->r, B->c, B->r);
     t = clock()-t;
     tt = ((double)t)/CLOCKS_PER_SEC;
     printf("fast: %f\t\n", tt);
+    
 
     printf("[+] Cleaning memory...");
     delete_matrix(A);

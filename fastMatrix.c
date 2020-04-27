@@ -34,35 +34,29 @@ void sum_int_matrix(int** A, int** B, int** C, int r, int c) {
 // ar = A rows
 // bc = B cols
 // br = A cols = B rows
-void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
-    int** m = (int**)malloc(bc*sizeof(int*));
+void mul_t(int** A, int** B, int** C, int** T, int ar, int bc, int br) {
     int i = 0, j, k;
-    for(i; i < br; i++) m[i] = (int*)malloc(br*sizeof(int));
 
     for(i=0; i < br; i++) {
-        for(j=0; j<bc; j++) m[i][j] = B[j][i];
+        for(j=0; j<bc; j++) T[j][i] = B[i][j];
     }
-    int* tmp = (int*)malloc(br*sizeof(int));
-    // Now m is the transposed matrix of B
-    
+    __m256i tmp = _mm256_set_epi32(0,0,0,0,0,0,0,0);
+    int cc[8];
     for(i=0; i < ar; i++) {
         for(j=0; j<bc; j++) {
             for(k=0; k+7<br; k+=8) {
                 __m256i a, b, c;
-                a = _mm256_loadu_si256((const __m256i*)A[i]+k);
-                b = _mm256_loadu_si256((const __m256i*)B[j]+k);
-                c = _mm256_mullo_epi32(a, b);
-                _mm256_storeu_si256((__m256i*)tmp+k, c);
+                a = _mm256_loadu_si256((const __m256i*)(A[i]+k));
+                b = _mm256_loadu_si256((const __m256i*)(T[j]+k));
+                tmp = _mm256_add_epi32(tmp, _mm256_mullo_epi32(a, b));
             }
-            for(k; k<br; k++) tmp[k] = A[i][k]*B[j][k];
-            C[i][j] = 0;
-            for(k=0; k<br; k++) C[i][j] = C[i][j] + tmp[k];
+            _mm256_storeu_si256((__m256i*)cc, tmp);
+            int sum = 0;
+            for(k; k<br; k++) sum += A[i][k]*T[j][k];
+            C[i][j] = sum;
+            for(k=0; k<8; k++) C[i][j] += cc[k];
         }
     }
-
-    free(tmp);
-    for(i=0;i<br;i++)free(m[i]);
-    free(m);
 }
 
 // r = A rows

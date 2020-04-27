@@ -8,3 +8,6 @@ OBJ = fastMatrix.o main.o
 
 test: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS)
+
+clean:
+	rm *.o test

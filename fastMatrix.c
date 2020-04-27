@@ -34,9 +34,9 @@ void sum_int_matrix(int** A, int** B, int** C, int r, int c) {
 // bc = B cols
 // br = A cols = B rows
 void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
-    int** m = (int**)malloc(br*sizeof(int*));
+    int** m = (int**)malloc(bc*sizeof(int*));
     int i = 0, j, k;
-    for(i; i < br; i++) m[i] = (int*)malloc(bc*sizeof(int));
+    for(i; i < br; i++) m[i] = (int*)malloc(br*sizeof(int));
 
     for(i=0; i < br; i++) {
         for(j=0; j<bc; j++) m[i][j] = B[j][i];
@@ -48,11 +48,11 @@ void mul_t(int** A, int** B, int** C, int ar, int bc, int br) {
             for(k = 0; k+7< br; k++) {
                 __m256i aa, bb, cc;
                 aa = _mm256_loadu_si256((const __m256i*)A[i]+k);
-                bb = _mm256_loadu_si256((const __m256i*)B[i]+k);
-                cc = _mm256_add_epi32(aa, bb);
+                bb = _mm256_loadu_si256((const __m256i*)m[i]+k);
+                cc = _mm256_mullo_epi32(aa, bb);
                 _mm256_storeu_si256((__m256i*)tmp+k, cc);
             }
-            for(k; k<br; k++) tmp[k] = A[i][k]*B[i][k];
+            for(k; k<br; k++) tmp[k] = A[i][k]*m[i][k];
             for(k = 0; k < br; k++) C[i][j] += tmp[k];
         }
     }
@@ -65,6 +65,6 @@ void mul(int** A, int** B, int** C, int r, int c, int n) {
     int i = 0, j, k;
     for(i; i < r; i++)
         for(j = 0; j < c; j++) {
-            for(k = 0; k < n; k++) C[i][j] += A[i][k] + B[k][j];
+            for(k = 0; k < n; k++) C[i][j] += A[i][k] * B[k][j];
         }
 }
